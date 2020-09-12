@@ -10,3 +10,4 @@ beautifulsoup4 = "*"
 requests = "*"
 fast-autocomplete = {extras = ["levenshtein"],version = "*"}
 lxml = "*"
+flask = "*"
