@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>pipUI</title>
+    <link rel="stylesheet" href="index.css" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+    <script src="./linker.js"></script>
+  </head>
+  <body onload="pip_freeze()">
+    <div class="coontainer text-align-center" onclick="close()">
+      <div class="row mb-2">
+        <input
+          id="file-input"
+          type="file"
+          webkitdirectory
+          directory
+          multiple="false"
+          name="name"
+          style="display: none"
+          onchange="browseResult(event)"
+        />
+        <label for="env">Choose a Python path:</label>
+        <select name="env" id="env" class="ml-2" onchange="choose(this)">
+          <option value="global" id="global">Global</option>
+          <option value="add">Add virtualenv</option>
+        </select>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="row">
+            <form class="form-inline mb-2" style="width: 100%">
+              <input
+                class="form-control"
+                type="search"
+                placeholder="Search package"
+                aria-label="Search"
+                id="search"
+                onkeyup="searchEvent(event)"
+              />
+              <button class="btn btn-outline-success ml-2" type="button">
+                Search
+              </button>
+            </form>
+          </div>
+          <div class="row">
+            <div id="searchContainer"></div>
+          </div>
+        </div>
+        <div class="col pr-0">
+          <div id="packageContainer"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hide" id="rmenu">
+      <ul>
+        <li onclick="pip_uninstall()">Delete</li>
+        <li onclick="pip_upgrade()">Upgrade</li>
+      </ul>
+    </div>
+
+    <div class="hide" id="smenu">
+      <ul>
+        <li id="description"></li>
+        <li onclick="pip_install()">Install</li>
+      </ul>
+    </div>
+    <!-- <div id="cy"></div> -->
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+      integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.15.2/cytoscape.min.js"
+      integrity="sha512-PqivlaNWoXvHYlvku80fbWO/yBiRmGhISj5uVdAodyqsGprDcVZy6aecJDVNE0fIIE/YeiOzp5yJTR5ZjFlR4Q=="
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
