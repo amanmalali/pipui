@@ -4,7 +4,7 @@ from pathlib import Path
 import pypiscraper
 
 
-def startup():
+def startup() -> None:
     """Startup script to verify and create intital requirements"""
 
     ROOT = Path(Path.home().joinpath(".pipui"))
