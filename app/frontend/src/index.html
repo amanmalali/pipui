@@ -15,45 +15,33 @@
     <script src="./linker.js"></script>
   </head>
   <body onload="pip_freeze()">
-    <div class="coontainer text-align-center" onclick="close()">
+    <div
+      class="coontainer text-align-center"
+      style="padding-left: 2rem; padding-right: 2rem; padding-top: 1rem;"
+    >
       <div class="row mb-2">
-        <div class="col">
-          <div class="row">
-            <input
-              id="file-input"
-              type="file"
-              webkitdirectory
-              directory
-              multiple="false"
-              name="name"
-              style="display: none"
-              onchange="browseResult(event)"
-            />
-            <label for="env">Python path:</label>
-          </div>
-          <div class="row">
-            <select name="env" id="env" onchange="choose(this)">
-              <option value="global" id="global">Global</option>
-              <option value="add">Add virtualenv</option>
-            </select>
-          </div>
-        </div>
-        <div class="col" style="margin-right: -45px">
-          <label for="name">Requirements.txt: </label>
+        <div class="col text-center">
           <input
-            id="req-file-input"
+            id="file-input"
             type="file"
+            webkitdirectory
+            directory
             multiple="false"
-            name="name1"
-            onchange="browseRequirements(event)"
+            name="name"
+            style="display: none"
+            onchange="browseResult(event)"
           />
-          <!-- <button class="btn btn-success btn-sm" onclick="chooseReq()">Choose</button> -->
+          <label for="env">Python path:</label>
+          <select name="env" id="env" onchange="choose(this)">
+            <option value="global" id="global">Global</option>
+            <option value="add">Add virtualenv</option>
+          </select>
         </div>
       </div>
       <div class="row">
         <div class="col">
-          <div class="row">
-            <form class="form-inline mb-2" style="width: 100%">
+          <div class="row" style="width: 107%;">
+            <form class="form-inline mb-1" style="width: 100%">
               <input
                 class="form-control"
                 type="search"
@@ -62,16 +50,16 @@
                 id="search"
                 onkeyup="searchEvent(event)"
               />
-              <button class="btn btn-outline-success ml-2" type="button">
+              <button class="btn  btn-dark ml-2" type="button">
                 Search
               </button>
             </form>
           </div>
-          <div class="row">
+          <div class="row" style="width: 107%;">
             <div id="searchContainer"></div>
           </div>
         </div>
-        <div class="col pr-0">
+        <div class="col">
           <div id="packageContainer"></div>
         </div>
       </div>
@@ -85,16 +73,43 @@
     </div>
     <div class="flex-container" id="searchReplace">
       <div>
-        <h5><span>Package Name: </span><span id="packageTitle">PKB</span></h5>
+        <h5><span id="packageTitle">PKB</span></h5>
       </div>
-      <div style="height: 40vh;">
-        <p>ABC</p>
+      <div style="height: 51vh">
+        <p id="packageDesc"><strong>Description:</strong><span id="packageDescText"></span></p>
+        <p id="packagePythonVersion"><strong>Required Python Version:</strong><span id="packagePythonVersionText"></span></p>
+        <p id="packageVersion"><strong>Package Version:</strong><span id="packageVersionText"></span></p>
       </div>
       <div>
-        <button class="btn btn-success btn-sm">Install</button>
-        <button class="btn btn-danger btn-sm" onclick="closePackageDetails()">Close</button>
+        <button class="btn btn-success btn-sm" onclick="pip_install_from_panel()" >Install</button>
+        <button class="btn btn-secondary btn-sm" onclick="closePackageDetails()">
+          Close
+        </button>
       </div>
     </div>
+    <div class="progressContainer pl-0"></div>
+    <div class="row pt-3" style="padding-left: 2rem;" >
+      <div class="col-xs-3" style="margin-left: 1px;">
+        <button class="btn btn-dark" onclick="pip_gen_req()">Generate Requirements</button>
+      </div>
+      <div class="col" style="margin-left: 93px;">
+        <button onclick="triggerRequirement()" class="btn btn-dark">Choose Requirements</button>
+      <input
+        id="req-file-input"
+        type="file"
+        multiple="false"
+        name="name1"
+        style="display: none;"
+        onchange="browseRequirements(event)"
+      />
+      </div>      
+    </div>
+    <div class="row"id="loadingContainer" style="display:none;">
+      <div class="col">
+        <div class="loading">Loading&#8230;</div>
+      </div>
+      <div class="col" id="loadingText">Installing....</div>
+    </div>    
     <script
       src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
       integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs="
