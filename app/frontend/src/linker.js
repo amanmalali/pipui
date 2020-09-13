@@ -3,6 +3,7 @@ const https = require("http");
 const { DH_CHECK_P_NOT_PRIME } = require("constants");
 var package = "";
 var searchPackage = "";
+var packageTitle = "";
 var venvFlag = false;
 var pythonPath;
 var pipPrefix = "pip";
@@ -53,7 +54,20 @@ function browseRequirements(e) {
     alert("Invalid File!");
   }
 }
+function startServer() {
+  const exec = require("child_process").exec;
+  const command = "server.exe";
+  exec(command, { cwd: "./server" }, (err, stdout, stderr) => {
+    console.log(stdout);
+    console.log(stderr);
+    if (err !== null) {
+      console.log("\nexec error for freeze: \n" + err);
+    }
+  });
+}
+
 function pip_freeze() {
+  startServer();
   const list = document.getElementById("packageContainer");
   list.innerHTML = "";
   const exec = require("child_process").exec;
@@ -116,7 +130,13 @@ function mouseY(evt) {
     return null;
   }
 }
+
+function loading() {
+  document.getElementById("loadingContainer").style.display = "block";
+}
+
 function pip_install() {
+  loading();
   console.log(searchPackage);
   let command = pipPrefix + " install " + searchPackage;
   const exec = require("child_process").exec;
@@ -126,13 +146,15 @@ function pip_install() {
     if (err !== null) {
       console.log("\nexec error for iur: \n" + err);
     }
-    if (stderr && stdout) {
-      alert(stdout);
-      pip_freeze();
-    } else if (stderr) {
+    if (stderr) {
       alert(stderr);
-    } else if (stdout) {
-      alert(stdout);
+      pip_freeze();
+    }
+    if (stdout) {
+      setTimeout(
+        (document.getElementById("loadingContainer").style.display = "none"),
+        2000
+      );
       pip_freeze();
     }
   });
@@ -140,22 +162,25 @@ function pip_install() {
 }
 
 function pip_uninstall() {
+  loading();
   console.log(package);
   let command = pipPrefix + " uninstall " + package + " -y";
   const exec1 = require("child_process").exec;
-  exec1(command, (err1, stdout1, stderr1) => {
-    console.log("\nstdout for iur: \n" + stdout1);
-    console.log("\nstderr for iur: \n" + stderr1);
-    if (err1 !== null) {
+  exec1(command, (err, stdout, stderr) => {
+    console.log("\nstdout for iur: \n" + stdout);
+    console.log("\nstderr for iur: \n" + stderr);
+    if (err !== null) {
       console.log("\nexec error for iur: \n" + err);
     }
-    if (stderr1 && stdout1) {
-      alert(stdout1);
+    if (stderr) {
+      alert(stderr);
       pip_freeze();
-    } else if (stderr1) {
-      alert(stderr1);
-    } else if (stdout1) {
-      alert(stdout1);
+    }
+    if (stdout) {
+      setTimeout(
+        (document.getElementById("loadingContainer").style.display = "none"),
+        2000
+      );
       pip_freeze();
     }
   });
@@ -164,22 +189,25 @@ function pip_uninstall() {
 }
 
 function pip_upgrade() {
+  loading();
   console.log(package);
   let command = "pip install " + package + " --upgrade";
   const exec2 = require("child_process").exec;
-  exec2(command, (err3, stdout3, stderr3) => {
-    console.log("\nstdout for iur: \n" + stdout3);
-    console.log("\nstderr for iur: \n" + stderr3);
-    if (err3 !== null) {
+  exec2(command, (err, stdout, stderr) => {
+    console.log("\nstdout for iur: \n" + stdout);
+    console.log("\nstderr for iur: \n" + stderr);
+    if (err !== null) {
       console.log("\nexec error for iur: \n" + err);
     }
-    if (stderr3 && stdout3) {
-      alert(stdout3);
+    if (stderr) {
+      alert(stderr);
       pip_freeze();
-    } else if (stderr3) {
-      alert(stderr3);
-    } else if (stdout3) {
-      alert(stdout3);
+    }
+    if (stdout) {
+      setTimeout(
+        (document.getElementById("loadingContainer").style.display = "none"),
+        2000
+      );
       pip_freeze();
     }
   });
@@ -195,6 +223,13 @@ function pip_gen_req() {
     // console.log('\nstderr for gen req: \n' + stderr)
     if (err !== null) {
       console.log("\nexec error for gen req: \n" + err);
+    }
+    if (stderr) {
+      alert(stderr);
+      pip_freeze();
+    } else if (stdout) {
+      alert(stdout);
+      pip_freeze();
     }
   });
 }
@@ -220,17 +255,6 @@ function pip_use_req(path) {
   });
 }
 
-function pip_outdated(command) {
-  const exec = require("child_process").exec;
-  exec(command, (err, stdout, stderr) => {
-    temp = stdout.split("\n");
-    for (i = 2; i < temp.length - 1; i++) {
-      temp1 = temp[i].split(" ");
-      console.log(temp1[0]);
-    }
-  });
-}
-
 function searchEvent(e) {
   var el = document.getElementById("search").value;
   document.getElementById("searchContainer").innerHTML = "";
@@ -240,6 +264,7 @@ function searchEvent(e) {
       return response.json();
     })
     .then((responseData) => {
+      console.log(responseData);
       const packageContainer = document.getElementById("packageContainer");
       const searchReplace = document.getElementById("searchReplace");
       const list = document.getElementById("searchContainer");
@@ -247,16 +272,57 @@ function searchEvent(e) {
         var item = document.createElement("p");
         item.appendChild(document.createTextNode(responseData[i]));
         list.appendChild(item);
-        item.addEventListener("click", function () {
-         packageContainer.innerHTML='';
-         packageContainer.appendChild(searchReplace);
-         searchReplace.style.display='block';
+        item.addEventListener("click", function (e) {
+          packageTitle = e.srcElement.innerHTML;
+          fetch(`http://localhost:5000/package_info?pkg_name=${packageTitle}`)
+            .then((response) => {
+              return response.json();
+            })
+            .then((res) => {
+              document.getElementById("packageDescText").innerText =
+                res.summary;
+              document.getElementById("packagePythonVersionText").innerText =
+                res.requires_python;
+              document.getElementById("packageVersionText").innerText =
+                res.version;
+            });
+          packageContainer.innerHTML = "";
+          packageContainer.appendChild(searchReplace);
+          searchReplace.style.display = "block";
+          document.getElementById("packageTitle").innerText = packageTitle;
         });
       }
     });
 }
-
+function pip_install_from_panel() {
+  loading();
+  let command = pipPrefix + " install " + packageTitle;
+  const exec = require("child_process").exec;
+  exec(command, (err, stdout, stderr) => {
+    console.log("\nstdout for iur: \n" + stdout);
+    console.log("\nstderr for iur: \n" + stderr);
+    if (err !== null) {
+      console.log("\nexec error for iur: \n" + err);
+    }
+    if (stderr) {
+      alert(stderr);
+      pip_freeze();
+    }
+    if (stdout) {
+      setTimeout(
+        (document.getElementById("loadingContainer").style.display = "none"),
+        2000
+      );
+      pip_freeze();
+    }
+  });
+  document.getElementById("smenu").className = "hide";
+}
 function closePackageDetails() {
-  document.getElementById("searchReplace").style.display='none';
+  document.getElementById("searchReplace").style.display = "none";
   pip_freeze();
+}
+
+function triggerRequirement() {
+  document.getElementById("req-file-input").click();
 }
