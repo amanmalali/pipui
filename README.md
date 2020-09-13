@@ -1,4 +1,7 @@
 <img src="https://raw.githubusercontent.com/amanmalali/pipui/master/images/pipui.png" width="200" height="100" />
+
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pipui_backend?color=gree&style=flat-square) ![npm version](https://img.shields.io/npm/v/electron?color=brightgreen)
+
 pipUI is an open sourced graphical user interface for pip; the python package installer. This application lets you see which packages are already installed and allows you to search and install new ones. This application can be run on Windows and Linux systems alike and also supports virtual environments.
 No more having to fumble through multiple pip commands to get a simple job done. 
 
