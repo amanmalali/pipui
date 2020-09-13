@@ -34,7 +34,7 @@ To install pipUI for Windows:
 # Screenshots
 Basic application          |  Installing a new package
 :-------------------------:|:-------------------------:
-<img src="https://raw.githubusercontent.com/amanmalali/pipui/master/images/disp_img1.jpeg" width="500" height="450" />  |  <img src="https://raw.githubusercontent.com/amanmalali/pipui/master/images/disp_img3.jpeg" width="500" height="450" /> 
+<img src="https://raw.githubusercontent.com/amanmalali/pipui/master/images/disp_img1.jpeg" width="500" height="430" />  |  <img src="https://raw.githubusercontent.com/amanmalali/pipui/master/images/disp_img3.jpeg" width="500" height="430" /> 
 
 # Built with
 * Python
