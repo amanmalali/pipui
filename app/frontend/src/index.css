@@ -3,6 +3,7 @@ body {
   margin: auto;
   max-width: 38rem;
   padding: 2rem;
+  overflow-x: hidden;
 }
 #search{
   width: 70%;
@@ -18,6 +19,13 @@ body {
   width: 100%;
   height: 70vh;
   overflow-y: auto;
+}
+#packageContainer1{
+  border: 1px solid black;
+  width: 100%;
+  height: 70vh;
+  overflow-y: auto;  
+  display: none;
 }
 p{
   margin-bottom: 0 !important;
@@ -58,4 +66,19 @@ p{
 .show ul{
   padding-left: 1vh;
   margin-bottom: 0;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-container > div {
+  width: 95%;
+  margin: 10px;
+  line-height: 75px;
+  font-size: 30px;
+}   
+#searchReplace{
+  display: none;
 }

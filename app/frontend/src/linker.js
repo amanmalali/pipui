@@ -24,12 +24,10 @@ function choose(selectObject) {
   if (selectObject.value === "global") {
     pipPrefix = "pip";
     pip_freeze();
-  }
-  else{
+  } else {
     pipPrefix = selectObject.value + "Scripts/python -m pip";
     pip_freeze();
   }
-  
 }
 function venvCondition() {
   if (venvFlag === true) {
@@ -44,10 +42,17 @@ function venvCondition() {
     counter = counter + 1;
     pip_freeze();
   } else {
-    
   }
 }
-
+function browseRequirements(e) {
+  let filePath = e.target.files[0].path;
+  let fileExtension = filePath.split(".").pop();
+  if (fileExtension === "txt") {
+    pip_use_req(filePath);
+  } else {
+    alert("Invalid File!");
+  }
+}
 function pip_freeze() {
   const list = document.getElementById("packageContainer");
   list.innerHTML = "";
@@ -194,14 +199,23 @@ function pip_gen_req() {
   });
 }
 
-function pip_use_req() {
+function pip_use_req(path) {
   const exec = require("child_process").exec;
-  const cmd = "pip install -r requirements.txt";
+  const cmd = "pip install -r " + path;
   exec(cmd, (err, stdout, stderr) => {
     console.log("\nstdout for use req: \n" + stdout);
     console.log("\nstderr for use req: \n" + stderr);
     if (err !== null) {
       console.log("\nexec error for use req: \n" + err);
+    }
+    if (stderr && stdout) {
+      alert(stdout);
+      pip_freeze();
+    } else if (stderr) {
+      alert(stderr);
+    } else if (stdout) {
+      alert(stdout);
+      pip_freeze();
     }
   });
 }
@@ -226,27 +240,23 @@ function searchEvent(e) {
       return response.json();
     })
     .then((responseData) => {
+      const packageContainer = document.getElementById("packageContainer");
+      const searchReplace = document.getElementById("searchReplace");
       const list = document.getElementById("searchContainer");
       for (var i = 0; i < responseData.length; i++) {
         var item = document.createElement("p");
         item.appendChild(document.createTextNode(responseData[i]));
-        item.addEventListener(
-          "contextmenu",
-          function (e) {
-            console.log(e);
-            searchPackage = e.srcElement.innerHTML;
-            document.getElementById("description").innerText = "lorem ipsum";
-            document.getElementById("smenu").className = "show";
-            document.getElementById("smenu").style.top = mouseY(event) + "px";
-            document.getElementById("smenu").style.left = mouseX(event) + "px"; //here you draw your own menu
-            e.preventDefault();
-          },
-          false
-        );
         list.appendChild(item);
         item.addEventListener("click", function () {
-          document.getElementById("smenu").className = "hide";
+         packageContainer.innerHTML='';
+         packageContainer.appendChild(searchReplace);
+         searchReplace.style.display='block';
         });
       }
     });
+}
+
+function closePackageDetails() {
+  document.getElementById("searchReplace").style.display='none';
+  pip_freeze();
 }
