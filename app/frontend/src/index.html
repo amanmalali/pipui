@@ -17,21 +17,38 @@
   <body onload="pip_freeze()">
     <div class="coontainer text-align-center" onclick="close()">
       <div class="row mb-2">
-        <input
-          id="file-input"
-          type="file"
-          webkitdirectory
-          directory
-          multiple="false"
-          name="name"
-          style="display: none"
-          onchange="browseResult(event)"
-        />
-        <label for="env">Choose a Python path:</label>
-        <select name="env" id="env" class="ml-2" onchange="choose(this)">
-          <option value="global" id="global">Global</option>
-          <option value="add">Add virtualenv</option>
-        </select>
+        <div class="col">
+          <div class="row">
+            <input
+              id="file-input"
+              type="file"
+              webkitdirectory
+              directory
+              multiple="false"
+              name="name"
+              style="display: none"
+              onchange="browseResult(event)"
+            />
+            <label for="env">Python path:</label>
+          </div>
+          <div class="row">
+            <select name="env" id="env" onchange="choose(this)">
+              <option value="global" id="global">Global</option>
+              <option value="add">Add virtualenv</option>
+            </select>
+          </div>
+        </div>
+        <div class="col" style="margin-right: -45px">
+          <label for="name">Requirements.txt: </label>
+          <input
+            id="req-file-input"
+            type="file"
+            multiple="false"
+            name="name1"
+            onchange="browseRequirements(event)"
+          />
+          <!-- <button class="btn btn-success btn-sm" onclick="chooseReq()">Choose</button> -->
+        </div>
       </div>
       <div class="row">
         <div class="col">
@@ -66,14 +83,18 @@
         <li onclick="pip_upgrade()">Upgrade</li>
       </ul>
     </div>
-
-    <div class="hide" id="smenu">
-      <ul>
-        <li id="description"></li>
-        <li onclick="pip_install()">Install</li>
-      </ul>
+    <div class="flex-container" id="searchReplace">
+      <div>
+        <h5><span>Package Name: </span><span id="packageTitle">PKB</span></h5>
+      </div>
+      <div style="height: 40vh;">
+        <p>ABC</p>
+      </div>
+      <div>
+        <button class="btn btn-success btn-sm">Install</button>
+        <button class="btn btn-danger btn-sm" onclick="closePackageDetails()">Close</button>
+      </div>
     </div>
-    <!-- <div id="cy"></div> -->
     <script
       src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
       integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs="
