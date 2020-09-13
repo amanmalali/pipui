@@ -22,12 +22,12 @@ The following instructions will guide you in setting up this application on your
 ## Installation
 pipUI works in both Windows and Linux operating systems.
 
-To install pipUI for Linux:
+To install pipUI on Linux:
 * Download the .deb file from PLACEHOLDER
 * Run ```$sudo dpkg --install package_name.deb```
 * You can either launch it from the the command line ```$pipui``` or from the app launcher of your distro
 
-To install pipUI for Windows:
+To install pipUI on Windows:
 * Download the executable from [here].(https://drive.google.com/file/d/1INclufSdJ9W8I_nWWmmpNNnHCjQYHsWI/view?usp=sharing)
 * Run the .exe application from the downloaded folder
 
