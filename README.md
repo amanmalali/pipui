@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/amanmalali/pipui/master/app/frontend/src/pipUI.png" width="150" height="150" />
+<img src="https://raw.githubusercontent.com/amanmalali/pipui/master/images/pipui.png" width="200" height="100" />
 pipUI is an open sourced graphical user interface for pip; the python package installer. This application lets you see which packages are already installed and allows you to search and install new ones. This application can be run on Windows and Linux systems alike and also supports virtual environments.
 No more having to fumble through multiple pip commands to get a simple job done. 
 
@@ -21,11 +21,22 @@ The following instructions will guide you in setting up this application on your
 
 ## Installation
 pipUI works in both Windows and Linux operating systems.
+
 To install pipUI for Linux:
 * Download the .deb file from PLACEHOLDER
 * Run ```$sudo dpkg --install package_name.deb```
 * You can either launch it from the the command line ```$pipui``` or from the app launcher of your distro
 
 To install pipUI for Windows:
+* Download the executable from PLACEHOLDER
+* Run the .exe application from the downloaded folder
 
+# Screenshots
+Basic application          |  Installing a new package
+:-------------------------:|:-------------------------:
+<img src="https://raw.githubusercontent.com/amanmalali/pipui/master/images/disp_img1.jpeg" width="500" height="500" />  |  <img src="https://raw.githubusercontent.com/amanmalali/pipui/master/images/disp_img3.jpeg" width="500" height="500" /> 
 
+# Built with
+* Python
+* Electron
+* Fast-Autocomplete
