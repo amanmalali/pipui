@@ -28,7 +28,7 @@ To install pipUI for Linux:
 * You can either launch it from the the command line ```$pipui``` or from the app launcher of your distro
 
 To install pipUI for Windows:
-* Download the executable from PLACEHOLDER
+* Download the executable from [here].(https://drive.google.com/file/d/1INclufSdJ9W8I_nWWmmpNNnHCjQYHsWI/view?usp=sharing)
 * Run the .exe application from the downloaded folder
 
 # Screenshots
