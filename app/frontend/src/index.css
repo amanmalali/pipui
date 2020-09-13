@@ -39,7 +39,7 @@ p {
 .show {
   z-index: 1000;
   position: absolute;
-  background-color: #e0e0d1;
+  background-color: #23272B;
   border: 1px solid black;
   padding: 2px;
   display: block;
