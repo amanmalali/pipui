@@ -2,7 +2,7 @@
 
 pipUI is a open sourced graphical user interface for pip, the python package installer. It lets you see which packages are already installed and allows you to search and install new ones. No more having to fumble through multiple pip commands to get a simple job done. This application can be run on Windows and Linux systems alike and also supports virtual environments.
 
-## Description
+# Description
 In order to make things easier for the average user, we aim to create a free and open-sourced graphical interface for pip. Some of the main features of this project are mentioned below:
 * Install packages system-wide or in a virtual environment.
 * Lists all the packages currently installed in the system or virtual environment.
